@@ -1,0 +1,46 @@
+name: ALLIBEE TYPE GENERATE
+
+on:
+  workflow_dispatch:
+
+run-name: Run with develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 체크아웃
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: develop
+
+      # node v16 설치
+      - name: Install Dependencies
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.19.1
+          cache: npm
+
+      # package 설치
+      - run: npm i --force
+
+      # 현재 디렉토리의 디렉토리와 파일 리스트 출력
+      - name: Current List files
+        run: |
+          ls -al
+
+      # Build
+      - name: Generate type
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
+        run: node index.js
+
+      # Github Push
+      - uses: actions/checkout@v3
+      - name: Generate Types
+        run: |
+          git config --global user.name 'test'
+          git config --global user.email 'test@users.noreply.github.com'
+          git commit -am "testing"
+          git push
