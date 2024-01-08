@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: develop
+          ref: main
 
       # node v16 설치
       - name: Install Dependencies
@@ -37,7 +37,6 @@ jobs:
         run: node index.js
 
       # Github Push
-      - uses: actions/checkout@v3
       - name: Generate Types
         run: |
           git config --global user.name 'test'
