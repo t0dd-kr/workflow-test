@@ -1,7 +1,8 @@
 name: ALLIBEE TYPE GENERATE
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
+permissions:
+  contents: write
 
 run-name: Run with develop
 
